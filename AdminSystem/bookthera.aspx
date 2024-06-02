@@ -13,7 +13,7 @@
     </script>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="form-container">
         <h2>Book Therapy</h2>
 
@@ -27,22 +27,22 @@
         <div class="input-group">
             <asp:Label ID="lblDate" runat="server" Text="Date"></asp:Label>
             <asp:TextBox ID="txtDate" runat="server" CssClass="datepicker"></asp:TextBox>
-            <!-- Use jQuery UI datepicker for date input -->
         </div>
 
         <div class="input-group">
             <asp:Label ID="lblTime" runat="server" Text="Time"></asp:Label>
             <asp:TextBox ID="txtTime" runat="server" CssClass="timepicker"></asp:TextBox>
-            <!-- Use jQuery UI timepicker for time input -->
         </div>
 
         <div class="input-group">
             <asp:Label ID="lblTheraName" runat="server" Text="Therapy Name"></asp:Label>
-            <asp:DropDownList ID="ddlTheraName" runat="server">
-                <asp:ListItem Text="Therapy 1" Value="Therapy 1"></asp:ListItem>
-                <asp:ListItem Text="Therapy 2" Value="Therapy 2"></asp:ListItem>
-                <asp:ListItem Text="Therapy 3" Value="Therapy 3"></asp:ListItem>
+            <asp:DropDownList ID="ddlTheraName" runat="server" OnSelectedIndexChanged="ddlTheraName_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
+        </div>
+
+        <div class="input-group">
+            <asp:Label ID="lblPrice" runat="server" Text="Price"></asp:Label>
+            <asp:TextBox ID="txtPrice" runat="server" ReadOnly="true"></asp:TextBox>
         </div>
 
         <div class="input-group">

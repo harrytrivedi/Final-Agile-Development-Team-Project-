@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Medi2Go", "Medi2Go\Medi2Go.sqlproj", "{631DF7BF-9883-432E-B605-C43BC927CCE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{631DF7BF-9883-432E-B605-C43BC927CCE8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0178CAFA-2333-42F7-9AB7-3C5568D6B4CA}
+	EndGlobalSection
+EndGlobal

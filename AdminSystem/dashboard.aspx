@@ -66,7 +66,7 @@
             </div>
 
             <div class="admin-option">
-                <a href="admin_settings.aspx">
+                <a href="ordermed.aspx">
                     <div class="icon">
                         <asp:Image ID="Image5" runat="server" ImageUrl="../images/menuclips/ordermedicine.jpg" AlternateText="Order Medicine" />
                     </div>

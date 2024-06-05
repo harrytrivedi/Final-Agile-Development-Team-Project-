@@ -1,63 +1,60 @@
 ﻿using System;
-using System.Configuration;
-using System.Data.SqlClient;
+using ClassLibrary;
+using Medi2GoLibrary.Models;
 
 public partial class BookAppointment : System.Web.UI.Page
 {
-    protected void btnBookAppointment_Click(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
-        // Retrieve values from the form
-        string username = txtUsername.Text;
-        string appoTime = txtTime.Text;
-        string appoDate = txtDate.Text;
-        string doctorName = ddlDoctorName.SelectedValue;
-
-        // Create connection string
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-
-        // Define query to insert appointment data into the database
-        string query = "INSERT INTO appointments (Username, AppoTime, AppoDate, DoctorName) VALUES (@Username, @AppoTime, @AppoDate, @DoctorName)";
-
-        // Create SqlConnection and SqlCommand objects
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        if (!IsPostBack)
         {
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                // Add parameters to the SqlCommand
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@AppoTime", appoTime);
-                command.Parameters.AddWithValue("@AppoDate", appoDate);
-                command.Parameters.AddWithValue("@DoctorName", doctorName);
-
-                try
-                {
-                    // Open the connection
-                    connection.Open();
-
-                    // Execute the query
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    // Check if any rows were affected
-                    if (rowsAffected > 0)
-                    {
-                        lblMessage.Text = "Appointment booked successfully!";
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Failed to book appointment. Please try again.";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Display error message
-                    lblMessage.Text = "An error occurred: " + ex.Message;
-                }
-            }
         }
     }
 
+    protected void btnBookAppointment_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            // Create a new instance of the Appointment class
+            Appointment appointment = new Appointment
+            {
+                Username = txtUsername.Text,
+                AppoTime = txtTime.Text, // Assigning the time as a string
+                AppoDate = DateTime.Parse(txtDate.Text).ToString("yyyy-MM-dd"), // Parsing and formatting the date
+                DoctorName = ddlDoctorName.SelectedValue
+            };
+
+            // Create an instance of the AppointmentCollection class
+            AppointmentCollection appointmentCollection = new AppointmentCollection();
+
+            // Add the appointment to the collection, which will save it to the database
+            appointmentCollection.Add(appointment);
+
+            // Display success message
+            lblMessage.Text = "Appointment booked successfully!";
+            lblMessage.ForeColor = System.Drawing.Color.Green;
+
+            // Clear the form fields after successful booking
+            ClearFields();
+        }
+        catch (Exception ex)
+        {
+            // Display error message
+            lblMessage.Text = "Error booking appointment: " + ex.Message;
+            lblMessage.ForeColor = System.Drawing.Color.Red;
+        }
+    }
     protected void btnManageAppointments_Click(object sender, EventArgs e)
     {
-            Response.Redirect("manageappos.aspx");
+        // Redirect to the ManageAppointments page
+        Response.Redirect("ManageAppointments.aspx");
+    }
+
+    private void ClearFields()
+    {
+        txtUsername.Text = string.Empty;
+        txtDate.Text = string.Empty;
+        txtTime.Text = string.Empty;
+        ddlDoctorName.SelectedIndex = 0;
     }
 }

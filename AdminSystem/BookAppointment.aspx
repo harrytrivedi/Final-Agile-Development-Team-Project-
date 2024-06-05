@@ -27,13 +27,11 @@
         <div class="input-group">
             <asp:Label ID="lblDate" runat="server" Text="Date"></asp:Label>
             <asp:TextBox ID="txtDate" runat="server" CssClass="datepicker"></asp:TextBox>
-            <!-- Use jQuery UI datepicker for date input -->
         </div>
 
         <div class="input-group">
             <asp:Label ID="lblTime" runat="server" Text="Time"></asp:Label>
             <asp:TextBox ID="txtTime" runat="server" CssClass="timepicker"></asp:TextBox>
-            <!-- Use jQuery UI timepicker for time input -->
         </div>
 
         <div class="input-group">

@@ -1,10 +1,16 @@
-﻿using System;
+﻿using ClassLibrary;
+using Medi2GoLibrary.Models;
+using System;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
-
+using System.Web.UI.WebControls;
 public partial class Index : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Clear any previous session
+        Session.Clear();
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -12,31 +18,39 @@ public partial class Index : System.Web.UI.Page
         string username = txtUsername.Text.Trim();
         string password = txtPassword.Text.Trim();
 
-        if (ValidateUser(username, password))
+        // Validate user credentials
+        UserCollection userCollection = new UserCollection();
+        User user = userCollection.ValidateLogin(username, password);
+
+        if (user != null)
         {
-            Response.Redirect("Dashboard.aspx");
+            // Store user details in session
+            Session["UserId"] = user.UserId;
+            Session["Username"] = user.Username;
+            Session["Fullname"] = user.Fullname;
+            Session["Email"] = user.Email;
+            Session["Level"] = user.Level;
+
+            // Redirect based on user level
+            switch (user.Level)
+            {
+                case 0:
+                    Response.Redirect("dashboard.aspx");
+                    break;
+                case 1:
+                    Response.Redirect("DoctorPanel.aspx");
+                    break;
+                case 2:
+                    Response.Redirect("StaffPanel.aspx");
+                    break;
+                default:
+                    lblMessage.Text = "Invalid user level.";
+                    break;
+            }
         }
         else
         {
             lblMessage.Text = "Invalid username or password.";
         }
-    }
-
-    private bool ValidateUser(string username, string password)
-    {
-        bool isValid = false;
-        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Medi2Go;Integrated Security=True;Connect Timeout=30;Encrypt=False;";
-
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            string query = "SELECT COUNT(1) FROM users WHERE username=@Username AND password=@Password";
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@Password", password);
-            con.Open();
-            int count = Convert.ToInt32(cmd.ExecuteScalar());
-            isValid = count == 1;
-        }
-        return isValid;
     }
 }

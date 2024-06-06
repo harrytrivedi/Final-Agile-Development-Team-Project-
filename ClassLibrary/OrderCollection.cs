@@ -74,6 +74,30 @@ namespace ClassLibrary
             }
         }
 
+        public void LoadOrdersByUsername(string username)
+        {
+            clsDataConnection db = new clsDataConnection();
+            db.AddParameter("@Username", username);
+            db.Execute("spGetOrdersByUsername");
+            DataTable dt = db.DataTable;
+
+            orders.Clear(); // Clear existing orders before loading new ones
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Order order = new Order
+                {
+                    OrderId = Convert.ToInt32(row["OrderId"]),
+                    Username = row["Username"].ToString(),
+                    MedName = row["MedName"].ToString(),
+                    Quantity = Convert.ToInt32(row["Quantity"]),
+                    Price = Convert.ToDecimal(row["Price"])
+                };
+                orders.Add(order);
+            }
+        }
+
+
         public Order FindById(int orderId)
         {
             clsDataConnection db = new clsDataConnection();

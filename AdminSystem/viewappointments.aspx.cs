@@ -1,9 +1,12 @@
 ﻿using ClassLibrary;
-using Medi2GoLibrary.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class manageappos : System.Web.UI.Page
+public partial class viewappointments : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -16,17 +19,10 @@ public partial class manageappos : System.Web.UI.Page
     protected void BindAppointments()
     {
         AppointmentCollection appointmentCollection = new AppointmentCollection();
-        string username = Session["Username"] as string;
-        if (!string.IsNullOrEmpty(username))
-        {
-            appointmentCollection.LoadAppointmentsByUsername(username);
-            GridViewAppointments.DataSource = appointmentCollection.Appointments;
-            GridViewAppointments.DataBind();
-        }
-        else
-        {
-            Response.Redirect("~/login.aspx");
-        }
+        appointmentCollection.LoadAppointments();
+
+        GridViewAppointments.DataSource = appointmentCollection.Appointments;
+        GridViewAppointments.DataBind();
     }
 
     protected void GridViewAppointments_RowCommand(object sender, GridViewCommandEventArgs e)

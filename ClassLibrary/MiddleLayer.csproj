@@ -56,6 +56,8 @@
     <Compile Include="Therapy.cs" />
     <Compile Include="TherapyCollection.cs" />
     <Compile Include="TherapyPack.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

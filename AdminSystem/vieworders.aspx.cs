@@ -1,8 +1,12 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
-using Medi2GoLibrary.Models;  
-using ClassLibrary;  
-public partial class ManageOrders : System.Web.UI.Page
+
+public partial class vieworders : System.Web.UI.Page
 {
     private OrderCollection orderCollection = new OrderCollection();
 
@@ -10,24 +14,9 @@ public partial class ManageOrders : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            // Retrieve username from session
-            string username = Session["Username"] as string;
-
-            if (!string.IsNullOrEmpty(username))
-            {
-                // Load orders for the current user
-                BindOrdersByUsername(username);
-            }
+            BindOrders();
         }
     }
-
-    protected void BindOrdersByUsername(string username)
-    {
-        orderCollection.LoadOrdersByUsername(username);
-        GridViewOrders.DataSource = orderCollection.Orders;
-        GridViewOrders.DataBind();
-    }
-
 
     protected void BindOrders()
     {

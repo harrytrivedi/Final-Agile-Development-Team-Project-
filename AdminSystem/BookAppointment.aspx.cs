@@ -47,7 +47,7 @@ public partial class BookAppointment : System.Web.UI.Page
     protected void btnManageAppointments_Click(object sender, EventArgs e)
     {
         // Redirect to the ManageAppointments page
-        Response.Redirect("ManageAppointments.aspx");
+        Response.Redirect("manageappos.aspx");
     }
 
     private void ClearFields()

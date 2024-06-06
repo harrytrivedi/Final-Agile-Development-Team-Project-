@@ -55,11 +55,32 @@ namespace ClassLibrary
             db.AddParameter("@Price", therapy.Price);
             db.Execute("spUpdateTherapy");
         }
-
         public void LoadTherapies()
         {
             clsDataConnection db = new clsDataConnection();
             db.Execute("spGetAllTherapies");
+            DataTable dt = db.DataTable;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                Therapy therapy = new Therapy
+                {
+                    TEId = Convert.ToInt32(row["TEId"]),
+                    Username = row["Username"].ToString(),
+                    TheraName = row["TheraName"].ToString(),
+                    TheraTime = row["TheraTime"].ToString(),
+                    TheraDate = ((DateTime)row["TheraDate"]).ToString("yyyy-MM-dd"),
+                    Price = row["Price"] != DBNull.Value ? Convert.ToDecimal(row["Price"]) : 0m // Handle DBNull for Price
+                };
+                therapies.Add(therapy);
+            }
+        }
+
+        public void LoadTherapiesByUsername(string username)
+        {
+            clsDataConnection db = new clsDataConnection();
+            db.AddParameter("@Username", username);
+            db.Execute("spGetTherapiesByUsername");
             DataTable dt = db.DataTable;
 
             foreach (DataRow row in dt.Rows)

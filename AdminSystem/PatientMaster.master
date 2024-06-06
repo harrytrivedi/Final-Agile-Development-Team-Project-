@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PatientMaster.master.cs" Inherits="PatientMaster" %>
+
+<!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="UTF-8">
@@ -18,18 +20,20 @@
             <div class="logo">
                 <img src="../images/Medi2GoPatient.png" alt="Medi2Go Logo" />
             </div>
-            <!-- Navigation links -->
             <ul class="nav-links">
                 <li><a href="../dashboard.aspx">Home</a></li>
-                <li><a href="../bookhcheckup.aspx">Checkups</a></li>
+                <li><a href="../manageaccount.aspx">My Account</a></li>
                 <li><a href="../BookAppointment.aspx">Appointments</a></li>
                 <li><a href="../bookthera.aspx">Therapies</a></li>
                 <li><a href="../ordermed.aspx">Medicine</a></li>
             </ul>
+            <div class="user-info">
+                <asp:Label ID="lblUsername" runat="server" CssClass="username-label"></asp:Label>
+                <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" CssClass="logout-button" />
+            </div>
         </nav>
 
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            <!-- Content from content pages will be inserted here -->
         </asp:ContentPlaceHolder>
     </form>
     <script src="script.js"></script>

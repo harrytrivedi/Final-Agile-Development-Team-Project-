@@ -58,8 +58,19 @@ namespace ClassLibrary
         {
             clsDataConnection db = new clsDataConnection();
             db.Execute("spGetAllAppointments");
-            DataTable dt = db.DataTable;
+            LoadAppointmentsFromDataTable(db.DataTable);
+        }
 
+        public void LoadAppointmentsByUsername(string username)
+        {
+            clsDataConnection db = new clsDataConnection();
+            db.AddParameter("@Username", username);
+            db.Execute("spGetAppointmentsByUsername");
+            LoadAppointmentsFromDataTable(db.DataTable);
+        }
+
+        private void LoadAppointmentsFromDataTable(DataTable dt)
+        {
             foreach (DataRow row in dt.Rows)
             {
                 Appointment appointment = new Appointment

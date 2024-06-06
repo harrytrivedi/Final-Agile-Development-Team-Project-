@@ -57,15 +57,7 @@
                 </a>
             </div>
 
-            <div class="admin-option">
-                <a href="admin_settings.aspx">
-                    <div class="icon">
-                        <asp:Image ID="Image4" runat="server" ImageUrl="../images/menuclips/monthlyreports.jpg" AlternateText="Monthly Reports" />
-                    </div>
-                </a>
-            </div>
-
-            <div class="admin-option">
+                  <div class="admin-option">
                 <a href="ordermed.aspx">
                     <div class="icon">
                         <asp:Image ID="Image5" runat="server" ImageUrl="../images/menuclips/ordermedicine.jpg" AlternateText="Order Medicine" />
@@ -88,7 +80,6 @@
                     </div>
                 </a>
             </div>
-
         </asp:Panel>
     </form>
     <script src="script.js"></script>

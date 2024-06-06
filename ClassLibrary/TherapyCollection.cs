@@ -33,7 +33,7 @@ namespace ClassLibrary
             db.AddParameter("@TheraName", therapy.TheraName);
             db.AddParameter("@TheraTime", therapy.TheraTime);
             db.AddParameter("@TheraDate", therapy.TheraDate);
-            db.AddParameter("@Price", therapy.Price); // Corrected to include price parameter
+            db.AddParameter("@Price", therapy.Price);
             db.Execute("spAddTherapy");
         }
 
@@ -52,7 +52,7 @@ namespace ClassLibrary
             db.AddParameter("@TheraName", therapy.TheraName);
             db.AddParameter("@TheraTime", therapy.TheraTime);
             db.AddParameter("@TheraDate", therapy.TheraDate);
-            db.AddParameter("@Price", therapy.Price); // Corrected to include price parameter
+            db.AddParameter("@Price", therapy.Price);
             db.Execute("spUpdateTherapy");
         }
 
@@ -69,9 +69,9 @@ namespace ClassLibrary
                     TEId = Convert.ToInt32(row["TEId"]),
                     Username = row["Username"].ToString(),
                     TheraName = row["TheraName"].ToString(),
-                    TheraTime = row["TheraTime"].ToString(), // Changed to string
-                    TheraDate = ((DateTime)row["TheraDate"]).ToString("yyyy-MM-dd"), // Formatting the date
-                    Price = Convert.ToDecimal(row["Price"]) // Added to populate price
+                    TheraTime = row["TheraTime"].ToString(),
+                    TheraDate = ((DateTime)row["TheraDate"]).ToString("yyyy-MM-dd"),
+                    Price = row["Price"] != DBNull.Value ? Convert.ToDecimal(row["Price"]) : 0m // Handle DBNull for Price
                 };
                 therapies.Add(therapy);
             }
@@ -91,9 +91,9 @@ namespace ClassLibrary
                     TEId = Convert.ToInt32(row["TEId"]),
                     Username = row["Username"].ToString(),
                     TheraName = row["TheraName"].ToString(),
-                    TheraTime = row["TheraTime"].ToString(), // Changed to string
-                    TheraDate = ((DateTime)row["TheraDate"]).ToString("yyyy-MM-dd"), // Formatting the date
-                    Price = Convert.ToDecimal(row["Price"]) // Added to populate price
+                    TheraTime = row["TheraTime"].ToString(),
+                    TheraDate = ((DateTime)row["TheraDate"]).ToString("yyyy-MM-dd"),
+                    Price = row["Price"] != DBNull.Value ? Convert.ToDecimal(row["Price"]) : 0m // Handle DBNull for Price
                 };
             }
             return null;

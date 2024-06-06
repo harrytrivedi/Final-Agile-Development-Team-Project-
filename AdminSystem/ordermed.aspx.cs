@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using Medi2GoLibrary.Models;
+using ClassLibrary;
 
 public partial class OrderMed : System.Web.UI.Page
 {
@@ -16,21 +15,13 @@ public partial class OrderMed : System.Web.UI.Page
 
     protected void BindMedicineDropdown()
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "SELECT MedID, MedName FROM Medicine";
+        MedicineCollection medicineCollection = new MedicineCollection();
+        medicineCollection.LoadMedicines();
 
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                ddlMedName.DataSource = reader;
-                ddlMedName.DataTextField = "MedName";
-                ddlMedName.DataValueField = "MedID";
-                ddlMedName.DataBind();
-            }
-        }
+        ddlMedName.DataSource = medicineCollection.Medicines;
+        ddlMedName.DataTextField = "MedName";
+        ddlMedName.DataValueField = "MedID";
+        ddlMedName.DataBind();
     }
 
     protected void ddlMedName_SelectedIndexChanged(object sender, EventArgs e)
@@ -45,23 +36,14 @@ public partial class OrderMed : System.Web.UI.Page
 
     protected void UpdatePrice()
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "SELECT Price FROM Medicine WHERE MedID = @MedID";
+        int medId = int.Parse(ddlMedName.SelectedValue);
+        MedicineCollection medicineCollection = new MedicineCollection();
+        Medicine selectedMedicine = medicineCollection.FindById(medId);
 
-        using (SqlConnection con = new SqlConnection(connectionString))
+        if (selectedMedicine != null)
         {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@MedID", ddlMedName.SelectedValue);
-                con.Open();
-                object result = cmd.ExecuteScalar();
-                if (result != null)
-                {
-                    decimal price = Convert.ToDecimal(result);
-                    txtPrice.Text = price.ToString("F2");
-                    UpdateTotalPrice();
-                }
-            }
+            txtPrice.Text = selectedMedicine.Price.ToString("F2");
+            UpdateTotalPrice();
         }
     }
 
@@ -79,21 +61,18 @@ public partial class OrderMed : System.Web.UI.Page
 
     protected void btnOrderMedicine_Click(object sender, EventArgs e)
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "INSERT INTO Orders (Username, MedName, Quantity, Price) VALUES (@Username, @MedName, @Quantity, @Price)";
-
-        using (SqlConnection con = new SqlConnection(connectionString))
+        // Create a new order
+        Order order = new Order
         {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@Username", txtUsername.Text);
-                cmd.Parameters.AddWithValue("@MedName", ddlMedName.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@Quantity", ddlQuantity.SelectedValue);
-                cmd.Parameters.AddWithValue("@Price", txtTotalPrice.Text);
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
+            Username = txtUsername.Text,
+            MedName = ddlMedName.SelectedItem.Text,
+            Quantity = int.Parse(ddlQuantity.SelectedValue),
+            Price = decimal.Parse(txtTotalPrice.Text)
+        };
+
+        // Add the order using OrderCollection
+        OrderCollection orderCollection = new OrderCollection();
+        orderCollection.Add(order);
 
         lblMessage.Text = "Order placed successfully!";
     }

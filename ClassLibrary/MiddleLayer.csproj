@@ -47,9 +47,15 @@
     <Compile Include="clsDataConnection.cs" />
     <Compile Include="Emergency.cs" />
     <Compile Include="HealthCheckup.cs" />
+    <Compile Include="Medicine.cs" />
+    <Compile Include="MedicineCollection.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TherapyPackCollection.cs" />
     <Compile Include="Therapy.cs" />
+    <Compile Include="TherapyCollection.cs" />
+    <Compile Include="TherapyPack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

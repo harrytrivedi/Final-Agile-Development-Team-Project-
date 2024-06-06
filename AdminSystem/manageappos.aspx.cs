@@ -1,7 +1,6 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using ClassLibrary;
+using Medi2GoLibrary.Models;
+using System;
 using System.Web.UI.WebControls;
 
 public partial class manageappos : System.Web.UI.Page
@@ -16,21 +15,11 @@ public partial class manageappos : System.Web.UI.Page
 
     protected void BindAppointments()
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "SELECT AppId, Username, AppoTime, AppoDate, DoctorName FROM appointments";
+        AppointmentCollection appointmentCollection = new AppointmentCollection();
+        appointmentCollection.LoadAppointments();
 
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                GridViewAppointments.DataSource = dt;
-                GridViewAppointments.DataBind();
-            }
-        }
+        GridViewAppointments.DataSource = appointmentCollection.Appointments;
+        GridViewAppointments.DataBind();
     }
 
     protected void GridViewAppointments_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -44,19 +33,9 @@ public partial class manageappos : System.Web.UI.Page
 
     private void DeleteAppointment(int appId)
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "DELETE FROM appointments WHERE AppId = @AppId";
+        AppointmentCollection appointmentCollection = new AppointmentCollection();
+        appointmentCollection.Remove(appId);
 
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@AppId", appId);
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        BindAppointments(); // Rebind the grid to reflect changes
+        BindAppointments(); 
     }
 }

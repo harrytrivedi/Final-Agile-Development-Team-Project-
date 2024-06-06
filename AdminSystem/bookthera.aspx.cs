@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ClassLibrary;
+using Medi2GoLibrary.Models;
+using System;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
@@ -24,23 +27,16 @@ public partial class BookThera : System.Web.UI.Page
         if (price > 0)
         {
             // Insert the booking into the database
-            string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-            string query = "INSERT INTO Therapies (Username, TheraName, TheraTime, TheraDate, Price) " +
-                           "VALUES (@Username, @TheraName, @TheraTime, @TheraDate, @Price)";
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            TherapyCollection therapyCollection = new TherapyCollection();
+            Therapy therapy = new Therapy
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@TheraName", therapyName);
-                    cmd.Parameters.AddWithValue("@TheraTime", therapyTime);
-                    cmd.Parameters.AddWithValue("@TheraDate", therapyDate);
-                    cmd.Parameters.AddWithValue("@Price", price);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
+                Username = username,
+                TheraName = therapyName,
+                TheraTime = therapyTime,
+                TheraDate = therapyDate,
+                Price = price
+            };
+            therapyCollection.Add(therapy);
 
             lblMessage.Text = "Therapy booked successfully!";
         }
@@ -49,6 +45,7 @@ public partial class BookThera : System.Web.UI.Page
             lblMessage.Text = "Error: Failed to retrieve therapy price.";
         }
     }
+
 
     protected void ddlTheraName_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -59,47 +56,30 @@ public partial class BookThera : System.Web.UI.Page
 
     private void PopulateTherapyDropDown()
     {
-        // Retrieve therapy names from the database and populate the dropdown list
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "SELECT TheraName FROM TherapyPack";
+        TherapyPackCollection therapyPackCollection = new TherapyPackCollection();
+        therapyPackCollection.LoadTherapyPacks();
 
-        using (SqlConnection con = new SqlConnection(connectionString))
+        foreach (TherapyPack therapyPack in therapyPackCollection.TherapyPacks)
         {
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string therapyName = reader["TheraName"].ToString();
-                        ddlTheraName.Items.Add(new ListItem(therapyName, therapyName));
-                    }
-                }
-            }
+            ddlTheraName.Items.Add(new ListItem(therapyPack.TheraName, therapyPack.TheraName));
         }
     }
 
     private decimal GetTherapyPrice(string therapyName)
     {
         decimal price = 0;
-        string connectionString = ConfigurationManager.ConnectionStrings["Medi2GoConnectionString"].ConnectionString;
-        string query = "SELECT Price FROM TherapyPack WHERE TheraName = @TherapyName";
+        TherapyPackCollection therapyPackCollection = new TherapyPackCollection();
+        therapyPackCollection.LoadTherapyPacks();
 
-        using (SqlConnection con = new SqlConnection(connectionString))
+        foreach (TherapyPack therapyPack in therapyPackCollection.TherapyPacks)
         {
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            if (therapyPack.TheraName == therapyName)
             {
-                cmd.Parameters.AddWithValue("@TherapyName", therapyName);
-                con.Open();
-                object result = cmd.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
-                {
-                    price = Convert.ToDecimal(result);
-                }
+                return therapyPack.Price;
             }
         }
 
         return price;
     }
+
 }

@@ -16,7 +16,7 @@
                 <img src="../images/Medi2GoDoctor.png" alt="Medi2Go Doctor  Logo" />
             </div>
             <ul class="nav-links">
-                <li><a href="../dashboard.aspx">Home</a></li>              
+                <li><a href="../dashboard.aspx">Home</a></li>
                 <li><a href="../bookhcheckup.aspx">Checkups</a></li>
                 <li><a href="../BookAppointment.aspx">Appointments</a></li>
                 <li><a href="../bookthera.aspx">Therapies</a></li>
@@ -26,41 +26,33 @@
 
         <asp:Panel ID="pnlOptions" runat="server" CssClass="admin-options">
             <div class="admin-option">
-                <a href="BookAppointment.aspx">
+                <a href="AddDoctor.aspx">
                     <div class="icon">
-                        <asp:Image ID="imgBookAppointment" runat="server" ImageUrl="../images/menuclips/DPDoctors.png" AlternateText="Book Appointment" />
+                        <asp:Image ID="imgBookAppointment" runat="server" ImageUrl="../images/menuclips/adddoctors.png" AlternateText="Book Appointment" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="bookhcheckup.aspx">
+                <a href="vieworders.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image1" runat="server" ImageUrl="../images/menuclips/DPPatients.png" AlternateText="Book Health Checkups" />
+                        <asp:Image ID="Image1" runat="server" ImageUrl="../images/menuclips/vieworders.png" AlternateText="View Staff" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="bookthera.aspx">
+                <a href="viewthera.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image2" runat="server" ImageUrl="../images/menuclips/DPStaff.png" AlternateText="Book Therapies" />
+                        <asp:Image ID="Image2" runat="server" ImageUrl="../images/menuclips/viewtherabook.png" AlternateText="View Therapies" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="admin_settings.aspx">
+                <a href="viewappointments.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image3" runat="server" ImageUrl="../images/menuclips/DPMAccess.png" AlternateText="Manage Account" />
-                    </div>
-                </a>
-            </div>
-
-            <div class="admin-option">
-                <a href="admin_settings.aspx">
-                    <div class="icon">
-                        <asp:Image ID="Image4" runat="server" ImageUrl="../images/menuclips/DPSAccount.png" AlternateText="Monthly Reports" />
+                        <asp:Image ID="Image3" runat="server" ImageUrl="../images/menuclips/viewappos.png" AlternateText="View Appointments" />
                     </div>
                 </a>
             </div>

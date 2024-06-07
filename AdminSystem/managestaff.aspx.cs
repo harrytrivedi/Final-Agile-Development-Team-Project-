@@ -108,4 +108,9 @@ public partial class ManageStaff : System.Web.UI.Page
         TextBox5.Text = "";
         TextBox6.Text = "";
     }
+
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("StaffPanel.aspx");
+    }
 }

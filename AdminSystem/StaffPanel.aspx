@@ -26,41 +26,33 @@
 
         <asp:Panel ID="pnlOptions" runat="server" CssClass="admin-options">
             <div class="admin-option">
-                <a href="BookAppointment.aspx">
+                <a href="managestaff.aspx">
                     <div class="icon">
-                        <asp:Image ID="imgBookAppointment" runat="server" ImageUrl="../images/menuclips/SPPatients.png" AlternateText="Book Appointment" />
+                        <asp:Image ID="AddStaff" runat="server" ImageUrl="../images/menuclips/addstaff.png" AlternateText="Add Staff" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="bookhcheckup.aspx">
+                <a href="vieworders.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image1" runat="server" ImageUrl="../images/menuclips/SPOrders.png" AlternateText="Book Health Checkups" />
+                        <asp:Image ID="Image1" runat="server" ImageUrl="../images/menuclips/vieworderstaff.png" AlternateText="View Orders" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="bookthera.aspx">
+                <a href="viewthera.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image2" runat="server" ImageUrl="../images/menuclips/SPAppointments.png" AlternateText="Book Therapies" />
+                        <asp:Image ID="Image2" runat="server" ImageUrl="../images/menuclips/viewtherabookstaff.png" AlternateText="View Therapies" />
                     </div>
                 </a>
             </div>
 
             <div class="admin-option">
-                <a href="admin_settings.aspx">
+                <a href="viewappointments.aspx">
                     <div class="icon">
-                        <asp:Image ID="Image3" runat="server" ImageUrl="../images/menuclips/SPCheckups.png" AlternateText="Manage Account" />
-                    </div>
-                </a>
-            </div>
-
-            <div class="admin-option">
-                <a href="admin_settings.aspx">
-                    <div class="icon">
-                        <asp:Image ID="Image4" runat="server" ImageUrl="../images/menuclips/SPTherapy.png" AlternateText="Monthly Reports" />
+                        <asp:Image ID="Image3" runat="server" ImageUrl="../images/menuclips/viewapposstaff.png" AlternateText="View Appointments" />
                     </div>
                 </a>
             </div>

@@ -626,7 +626,7 @@ namespace TestHarshPatientPanel
             Order order = new Order();
             bool found = false;
             bool ok = true;
-            int OrderId = 10;
+            int OrderId = 134;
 
             // Act
             order = orders.FindById(OrderId);
@@ -745,7 +745,7 @@ namespace TestHarshPatientPanel
             Therapy therapy = new Therapy();
             bool found = false;
             bool ok = true;
-            int TEId = 43;
+            int TEId = 122;
 
             // Act
             therapy = therapies.FindById(TEId);

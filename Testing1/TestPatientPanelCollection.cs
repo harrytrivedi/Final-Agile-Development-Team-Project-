@@ -72,7 +72,7 @@ namespace TestHarshPatientPanel
             AppointmentCollection appointmentCollection = new AppointmentCollection();
             Appointment appointment = new Appointment
             {
-                AppId = 72,
+                AppId = 177,
                 Username = "harsht1955",
                 AppoTime = "10:00AM",
                 AppoDate = "10/06/2024",

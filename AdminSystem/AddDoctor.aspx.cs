@@ -115,4 +115,9 @@ public partial class AddDoctor : Page
         // Optionally clear the text boxes after deleting the doctor
         ClearForm();
     }
+
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("DoctorPanel.aspx");
+    }
 }
